@@ -4,9 +4,9 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const cors = require("cors");
-const connectDB = require("./config/db");
-const sensorDataRoutes = require("./routes/sensorDataRoute");
-const errorHandler = require("./middlewares/errorHandler");
+const connectDB = require("./src/config/db");
+const sensorDataRoutes = require("./src/routes/sensorDataRoute");
+const errorHandler = require("./src/middlewares/errorHandler");
 
 const app = express();
 
@@ -36,6 +36,7 @@ app.use((req, res, next) => {
 
 // API Routes
 app.use("/api", sensorDataRoutes);
+
 
 // Global Error Handler
 app.use(errorHandler);
