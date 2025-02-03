@@ -1,12 +1,12 @@
-require('dotenv').config(); // Load environment variables
+require("dotenv").config(); // Load environment variables
 
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const cors = require('cors');
-const connectDB = require('./config/db');
-const sensorDataRoutes = require('./routes/sensorDataRoute');
-const errorHandler = require('./middlewares/errorHandler');
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
+const cors = require("cors");
+const connectDB = require("./config/db");
+const sensorDataRoutes = require("./routes/sensorDataRoute");
+const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 
@@ -21,11 +21,11 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     // Allow the client origin, either from your .env or hardcoded for testing
-    origin: "http://127.0.0.1:5500",
+    origin: "*",
     methods: ["GET", "POST"],
     // If needed, you can allow credentials:
     // credentials: true,
-  }
+  },
 });
 
 // Custom middleware to attach Socket.io instance to each request
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 // API Routes
-app.use('/api', sensorDataRoutes);
+app.use("/api", sensorDataRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
