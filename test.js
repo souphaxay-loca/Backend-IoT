@@ -20,3 +20,4 @@ async function sendMockData() {
 // Send data every 5 seconds
 setInterval(sendMockData, 5000);
 sendMockData(); // Initial send
+

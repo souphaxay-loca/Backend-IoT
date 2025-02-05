@@ -1,9 +1,14 @@
 // src/services/sensorData.service.js
 const SensorData = require('../models/sensorData');
 
-const createSensorData = async (data) => {
+const createSensorData = async (sensorPayload) => {
   try {
-    const sensorData = new SensorData(data);
+    // Basic validation of required sensor data
+    if (!sensorPayload.temperature || !sensorPayload.humidity || !sensorPayload.mq3) {
+      throw new Error('Missing required sensor readings');
+    }
+
+    const sensorData = new SensorData(sensorPayload);
     return await sensorData.save();
   } catch (error) {
     throw error;
