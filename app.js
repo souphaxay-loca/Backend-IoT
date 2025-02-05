@@ -34,17 +34,24 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // API Routes
 app.use("/api", sensorDataRoutes);
-
 
 // Global Error Handler
 app.use(errorHandler);
 
 // Connect to MongoDB and then start the server
-connectDB().then(() => {
-  const PORT = process.env.PORT || 3999;
-  server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+connectDB()
+  .then(() => {
+    const PORT = process.env.PORT || 3999;
+    server.listen(PORT, "0.0.0.0", () => {
+      // Add '0.0.0.0' to listen on all network interfaces
+      console.log(`Server is running on port ${PORT}`);
+      console.log("Environment:", process.env.NODE_ENV);
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection failed:", error);
+    process.exit(1);
   });
-});
